@@ -5,6 +5,8 @@ applyTo: "**"
 
 ## Guidelines for fetching services
 - When fetching service names in Dynatrace, always query `dt.entity`, but always display the service names from the `entity.name` field
+
+## Guidelines for filtering data
 - If the value of DT_ENVIRONMENT contains `wkf10640`, then always apply `filter startsWith(entity.name, "astroshop-")` in `dt.entity.service`. - For any other value of DT_ENVIRONMENT, don't apply the above filter.
 
 
