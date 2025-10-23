@@ -4,7 +4,7 @@ model: GPT-4o
 tools: ['runCommands', 'npx-dynatrace-mcp-server']
 description: 'Show last 5 traces in Dynatrace'
 ---
-Your goal is to display the last 5 traces in Dynatrace from 
+Your goal is to display the last 5 traces in Dynatrace and their corresponding service names.
 
 Requirements:
 
@@ -22,6 +22,9 @@ on: {dt.entity.service},
 kind: outer
 | fieldsRemove right.dt.entity.service
 ```
+
+* If the value of DT_ENVIRONMENT does NOT contain `wkf10640`, then remove `filter startsWith(entity.name, "astroshop-")` in `dt.entity.service`.
+
 
 * Display results in a table:
     * Display fields: `right.service_name`, `span.id`, `trace.id`, `start_time`, `end_time`
