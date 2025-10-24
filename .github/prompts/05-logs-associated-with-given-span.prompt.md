@@ -11,6 +11,6 @@ Requirements:
     * `span_id` is not null
     * `service.name` contains `recommendation`
 * Fetch all logs having the value of `span_id` returned above
-* Print the service name, span ID, trace ID, start time, end time.
+* Print the service name, span ID, trace ID
 * Also print: `timestamp`, `content`, `loglevel`
 * Display results in a table
