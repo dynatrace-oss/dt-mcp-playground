@@ -1,10 +1,18 @@
 ---
 mode: 'agent'
 model: GPT-4o
-tools: ['runCommands', 'npx-dynatrace-mcp-server']
+tools: ['runCommands', 'npx-dynatrace-mcp-server/*']
 description: 'List services in Dynatrace for the Astroshop app'
 ---
-Your goal is to list the services in Dynatrace.
+List the services in Dynatrace.
+
+Use query:
+
+```text
+fetch dt.entity.service
+| fields entity.name
+| sort entity.name
+```
 
 Requirements:
 * Print the total number of services
