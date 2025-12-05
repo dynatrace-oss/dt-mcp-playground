@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
+agent: 'agent'
 model: GPT-4o
-tools: ['runCommands', 'npx-dynatrace-mcp-server']
+tools: ['runCommands', 'npx-dynatrace-mcp-server/*']
 description: 'List which services have associated logs'
 ---
 Your goal is to list which services in Dynatrace have associated logs.

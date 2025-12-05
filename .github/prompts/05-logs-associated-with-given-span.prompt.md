@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
+agent: 'agent'
 model: GPT-4o
-tools: ['runCommands', 'npx-dynatrace-mcp-server']
+tools: ['runCommands', 'npx-dynatrace-mcp-server/*']
 description: 'Display log message associated with a given span'
 ---
 Your goal is to display the log messages for the latest span in Dynatrace.

@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
+agent: 'agent'
 model: GPT-4o
-tools: ['runCommands', 'npx-dynatrace-mcp-server']
+tools: ['runCommands', 'npx-dynatrace-mcp-server/*']
 description: 'Print average response time per service'
 ---
 Your goal is to display the average response time and p50 response time for services in Dynatrace.

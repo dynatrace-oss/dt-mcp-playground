@@ -1,7 +1,7 @@
 ---
-mode: 'agent'
+agent: 'agent'
 model: GPT-4o
-tools: ['runCommands', 'npx-dynatrace-mcp-server']
+tools: ['runCommands', 'npx-dynatrace-mcp-server/*']
 description: 'Show last 5 traces in Dynatrace'
 ---
 Your goal is to display the last 5 traces in Dynatrace.

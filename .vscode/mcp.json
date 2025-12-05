@@ -4,7 +4,7 @@
     "npx-dynatrace-mcp-server": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@dynatrace-oss/dynatrace-mcp-server@0.11.0"],
+      "args": ["-y", "@dynatrace-oss/dynatrace-mcp-server@1.0.0"],
       "envFile": "${workspaceFolder}/.env"
     },
 
