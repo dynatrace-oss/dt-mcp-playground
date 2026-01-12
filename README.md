@@ -33,40 +33,45 @@ If you open up [`.vscode/mcp.json`](.vscode/mcp.json), you'll notice the configu
 { 
   "servers": {
     // https://github.com/dynatrace-oss/dynatrace-mcp
-    "npx-dynatrace-mcp-server": {
+    "dynatrace-oss/dynatrace-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@dynatrace-oss/dynatrace-mcp-server@0.10.0"],
-      "envFile": "${workspaceFolder}/.env.av"
+      "args": [
+				"@dynatrace-oss/dynatrace-mcp-server@1.0.0"
+			],      
+      "env": {
+				"DT_ENVIRONMENT": "${input:dt_environment}"
+			},			
+			"version": "1.0.0"
     },
-  }
+  }, 
+	"inputs": [
+		{
+			"id": "dt_environment",
+			"type": "promptString",
+			"description": "Dynatrace Platform URL (e.g., https://abc12345.apps.dynatrace.com — not classic live.dynatrace.com).",
+			"password": false
+		}
+	]
 }
 ```
 
 Let’s take a closer look at the above JSON:
-* `npx-dynatrace-mcp-server`: the name of the MCP server. This name can be anything you want, even Dynatrace MCP server, spaces and all.
+* `dynatrace-oss/dynatrace-mcp`: the name of the MCP server. This name can be anything you want, even Dynatrace MCP server, spaces and all.
 * `type`: The connection type. Valid values are: `stdio`, `sse`, and `http`. We’re using `stdio`, which means that a copy of the Dynatrace MCP server runs locally in VSCode. `sse` and `http` are used for accessing remote MCP servers. For more information on remote vs. local MCP servers, check out [this great overview](https://www.apideck.com/blog/understanding-local-and-remote-model-context-protocols).
 * `command`: The command to run the MCP server. Since the type is `stdio`, the Dynatrace MCP server will run locally, which requires a command to run the server. The Dynatrace MCP server is available as an executable npm package, so it uses the `npx` command to run it (already installed in this dev container).
 * `args`: The arguments passed to the npx command. Here, we have 2 `args`. the `-y` arg tells npx to install dependent packages without prompting, and the second arg includes the package name (`dynatrace-oss/dynatrace-mcp-server`), and version (`v0.10.0`). If you want to use a version other than latest, check out the [list of available versions of the Dynatrace MCP server](https://github.com/dynatrace-oss/dynatrace-mcp/tags).
-* `envFile`: Environment variable file. The Dynatrace MCP server requires that you set certain environment variables so that you can interact with Dynatrace. This tells VSCode to look for an .env file in the VSCode workspace root.
-
-Before we can start up the Dynatrace MCP server, we need to a Dynatrace platform token. For this, you will need to create a .env file.:
-
-```bash
-cp .env.template .env
-```
-And then fill in the values for the following environment variables:
-
-* `DT_PLATFORM_TOKEN`: your Dynatrace Platform Token
-* `DT_ENVIRONMENT`: "https://<your_dt_tenant>.apps.dynatrace.com"
-
-To create your Dynatrace platform token, follow the instructions [here](https://docs.dynatrace.com/docs/manage/identity-access-management/access-tokens-and-oauth-clients/platform-tokens). Also check out the [Dynatrace MCP server README](https://github.com/dynatrace-oss/dynatrace-mcp?tab=readme-ov-file#scopes-for-authentication) for a list of authentication scopes to include for the platform token.
+* `env`: Environment variable that specifies the Dynatrace Tenant to connect to. This one will be prompted by Visual Studio once we start the server. 
 
 ### Step 3: Start the Dynatrace MCP server
 
-To start the MCP server, open mcp.json in VSCode, and click “Start”, located just above `npx-dynatrace-mcp-server`.
+To start the MCP server, open mcp.json in VSCode, and click “Start”, located just above `dynatrace-oss/dynatrace-mcp`.
 
 ![Start DT MCP server](images/mcp-server-pre-start.png)
+
+Visual Studio code will prompt you to enter the Dynatrace Tenant URL. To connect to the Dynatrace Playground please enter: `https://playground.apps.dynatrace.com`
+
+After that VSCode will open a browser to authenticate against the playground. As everyone with a Dynatrace SaaS account has access to the Playground you should be good to go!
 
 Once the MCP server is started, you should see “Running” in place of “Start”:
 
@@ -103,7 +108,15 @@ Here are the prompts to execute:
 * `/02-avg-response-time.prompt.md` -> Give me the avg response time per service in the astroshop namespace?
 * `/03-logs-associated-with-services.prompt.md` -> How many astroshop services have associated logs?
 * `/04-last-five-traces.prompt.md` -> Show me the last 5 traces, include spand id, trace is, start time, end time and number of associated logs for x service?
-* `/05-logs-associated-with-given-span.prompt.md` -> Show me the latest log messages for the most  span in Dynatrace that has associated logs.
+* `/05-logs-associated-with-given-span.prompt.md` -> Show me the latest log messages for the most span in Dynatrace that has associated logs.
+* `/06-error-rate-by-service.prompt.md` -> What is the error rate by service?
+* `/07-error-count-by-namespace.prompt.md` -> What is the error count by namespace?
+* `/08-slow-operations.prompt.md` -> Show me slow operations
+* `/09-percentile-latencies.prompt.md` -> Show me percentile latencies
+* `/10-service-dependencies.prompt.md` -> Show me service dependencies
+* `/11-conversion-funnel.prompt.md` -> Show me conversion funnel analysis
+* `/12-pod-health.prompt.md` -> Show me pod health status
+* `/13-time-comparison.prompt.md` -> Show me time-based comparison analysis
 
 ## Resources
 

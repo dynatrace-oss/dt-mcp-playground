@@ -1,19 +1,12 @@
----
-applyTo: "**"
----
-# Dynatrace MCP server query standards
+# Dynatrace MCP Server Integration
 
-## Guidelines for fetching Dynatrace services
-- When fetching service names in Dynatrace, always query `dt.entity.service`, but always display the service names from the `entity.name` field
+🔄 **Loading Dynatrace Agent...**
 
-## Calculate service response time
-- Calculate average response time and p50 response time using this query: 
+**IMPORTANT:** Use the Dynatrace MCP server for all data queries. If the Dynatrace MCP server is not installed, please inform the user.
 
-```
-timeseries by:{dt.entity.service}, avg_response_time = avg(dt.service.request.response_time), p50_response_time = percentile(dt.service.request.response_time, 50)\n| lookup [fetch dt.entity.service], sourceField:dt.entity.service, lookupField:id, fields:{entity.name}\n| sort entity.name
-```
+**DATA GUARDRAILS:** To prevent context overflow, always apply these constraints:
+- **Time limits**: Use `from:now()-1h` (or shorter) for all queries unless the user specifies otherwise
+- **Result limits**: Always include `| limit 100` (or less) to cap the number of returned records
+- **Aggregation preferred**: Use `summarize` to aggregate data rather than fetching raw records when possible
 
-## Display guidelines
-- Use the name field, not the ID field when listing services.
-- If a null value is returned when requesting a value for trace ID, try `trace.id`, `trace_id`, and `trace id`
-- If a null value is returned when requesting a value for trace ID, try `span.id`, `span_id`, and `span id`
+**Note:** When using Dynatrace tools, the appropriate analysis mode will be automatically selected based on your request. Always use `verify_dql` before `execute_dql` to ensure query validity.

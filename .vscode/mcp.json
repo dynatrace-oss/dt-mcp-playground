@@ -1,12 +1,24 @@
 { 
   "servers": {
     // https://github.com/dynatrace-oss/dynatrace-mcp
-    "npx-dynatrace-mcp-server": {
+    "dynatrace-oss/dynatrace-mcp": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@dynatrace-oss/dynatrace-mcp-server@0.11.0"],
-      "envFile": "${workspaceFolder}/.env"
+      "args": [
+				"@dynatrace-oss/dynatrace-mcp-server@1.0.0"
+			],      
+      "env": {
+				"DT_ENVIRONMENT": "${input:dt_environment}"
+			},			
+			"version": "1.0.0"
     },
-
-  }
+  }, 
+	"inputs": [
+		{
+			"id": "dt_environment",
+			"type": "promptString",
+			"description": "Dynatrace Platform URL (e.g., https://abc12345.apps.dynatrace.com — not classic live.dynatrace.com).",
+			"password": false
+		}
+	]
 }
