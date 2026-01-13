@@ -29,7 +29,7 @@ Key Takeaways:
 You can run this tutorial in two ways
 
 1. Fork this GitHub repo and launch the Codespace. Once its up you are in Visual Studio and you are ready to go
-2. Clone this GitHub repo locally in open it in your local Visual Studio Code instance!
+2. Clone this GitHub repo locally in open it in your local Visual Studio Code instance! You will need a locally installed npx to run the Dynatrace MCP Server!
 
 ### Step 1: Enable MCP support in VSCode
 
