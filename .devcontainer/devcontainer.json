@@ -1,5 +1,8 @@
 {
   "name": "default",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "image": "mcr.microsoft.com/devcontainers/python:dev-3.13-bullseye",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
