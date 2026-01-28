@@ -1,25 +1,29 @@
 {
-    "name": "default",
-    "image": "mcr.microsoft.com/devcontainers/python:dev-3.13-bullseye",
-    "features": {
-      "ghcr.io/devcontainers/features/node:1": {},
-      "ghcr.io/devcontainers-extra/features/kubectl-asdf:2": {},
-      "ghcr.io/dhoeric/features/k9s:1": {},
-      "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    },
-    "overrideFeatureInstallOrder": [
-        "ghcr.io/devcontainers/features/node",
-        "ghcr.io/devcontainers-extra/features/kubectl-asdf",
-        "ghcr.io/dhoeric/features/k9s",
-    ],
-    "hostRequirements": {
-      "cpus": 4,
-      "memory": "16gb",
-      "storage": "16gb"
-    },
-    "remoteEnv": {
-      "PODMAN_USERNS": "keep-id"
-    },
-    "containerUser": "vscode",
-    "postCreateCommand": ".devcontainer/post-create.sh",
-  }
+  "name": "default",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  //"image": "mcr.microsoft.com/devcontainers/python:dev-3.13-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers-extra/features/kubectl-asdf:2": {},
+    "ghcr.io/dhoeric/features/k9s:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "overrideFeatureInstallOrder": [
+    "ghcr.io/devcontainers/features/node",
+    "ghcr.io/devcontainers-extra/features/kubectl-asdf",
+    "ghcr.io/dhoeric/features/k9s",
+    "ghcr.io/devcontainers/features/docker-in-docker"
+  ],
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "16gb",
+    "storage": "16gb"
+  },
+  "remoteEnv": {
+    "PODMAN_USERNS": "keep-id"
+  },
+  "containerUser": "vscode",
+  "postCreateCommand": ".devcontainer/post-create.sh"
+}
