@@ -1,23 +1,4 @@
 #!/bin/bash
-set -e
-
-echo "Fixing Yarn GPG signatures..."
-# 1. Download the new key and save it to the modern keyring location
-curl -sS https://dl.yarnpkg.com | gpg --dearmor | sudo tee /usr/share/keyrings/yarn-archive-keyring.gpg >/dev/null
-
-# 2. Update the yarn.list to use the specific 'signed-by' path
-echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
-# 3. Clean up the old/expired key if it exists in the legacy keyring to prevent noise
-sudo apt-key del 88B63E1E || true
-
-# 4. Update apt-get now that the signatures are valid
-sudo apt-get update
-
-echo "Yarn key fixed. Proceeding with remaining setup..."
-
-# --- YOUR EXISTING POST-CREATE LOGIC BELOW ---
-
 ### -------------------
 ### Uncomment ll command in bashrc
 ### -------------------
